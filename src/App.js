@@ -1,13 +1,35 @@
 import React, { useState, useEffect } from "react";
 
 function App() {
-  useEffect(() => {
+  const [count, setCount] = useState(0);
+  const [text, setText] =  useState("");
+  useEffect(
+    () => {
     console.log("useEffect called");
-  });
+  },[count]);
+
+  useEffect(()=>{
+    document.title= text;
+  }, [text]);
+
+  useEffect(()=>{
+    setTimeout(()=>setCount(0),5000);
+  }, [])
 
   console.log("Component rendering");
 
-  return <button>Click Me</button>;
+  return (
+  <div>
+    <button onClick={()=> setCount((count) => count +1)}>
+    I've been clicked {count} times
+    </button>
+    <input
+    type="text"
+    placeholder="Type Away.."
+    value={text}
+    onChange={(e)=>setText(e.target.value)}
+    ></input>
+    </div>)
 }
 
 export default App;
